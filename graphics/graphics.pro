@@ -29,14 +29,19 @@ SOURCES += \
     base/vector2.cpp \
     base/vector3.cpp \
     base/rgb.cpp \
-    base/image.cpp
+    base/image.cpp \
+    base/graphic_algorithm.cpp
 
 HEADERS += \
         mainwindow.h \
     base/vector2.h \
     base/vector3.h \
     base/rgb.h \
-    base/image.h
+    base/image.h \
+    base/include.h \
+    base/graphic_algorithm.h \
+    base/constant.h \
+    base/math.h
 
 FORMS += \
         mainwindow.ui
