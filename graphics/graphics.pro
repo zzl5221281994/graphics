@@ -41,7 +41,8 @@ HEADERS += \
     base/include.h \
     base/graphic_algorithm.h \
     base/constant.h \
-    base/math.h
+    base/math.h \
+    base/svpng.h
 
 FORMS += \
         mainwindow.ui
