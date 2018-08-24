@@ -8,5 +8,4 @@
 #include<list>
 #include<deque>
 #include<assert.h>
-#include "constant.h"
 #endif // INCLUDE_H

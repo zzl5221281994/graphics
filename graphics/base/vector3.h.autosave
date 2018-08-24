@@ -6,7 +6,7 @@ class vector3
 {
 public:
     vector3();
-    vector3(const double &x,const double &y,const double &z);
+    vector3(double x,double y,double z,const point3&direction,double length);
     vector3(const vector3 &v);
     vector3& operator=(const vector3 &v);
 
@@ -21,8 +21,6 @@ private:
     double len;
     point3 originPoint;
     point3 normalizeDirection;
-
-
 };
 
 #endif // VECTOR3_H
