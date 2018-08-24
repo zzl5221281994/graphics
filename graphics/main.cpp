@@ -50,9 +50,9 @@ int main(int argc, char *argv[])
 
     point3 rayDirec(1,1,1);
     RTL::ray r(0,0,0,rayDirec,10);
-    point3 p(2,2,2);
-    cout<<RTL::distance_p3_line(r,p)<<endl;
+    point3 p(0,0,1);
 
-
+    std::cout<<RTL::distance_p3_line(r,p)<<std::endl;
     return 0;
+
 }

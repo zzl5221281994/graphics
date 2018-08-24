@@ -1,6 +1,8 @@
 #include "vector3.h"
 #include "ray.h"
 #include <cmath>
+#include <tuple>
+#include <base/Eigen/Dense.h>
 
 namespace RTL{
     template<typename T1,typename IterType>
@@ -24,12 +26,20 @@ namespace RTL{
         return v1.x*v2.x+v1.y*v2.y+v1.z*v2.z;
     }
 
-    float distance_p3_line(const ray&r,const point3&p)
+    float distance_p3_ray(const ray&r,const point3&Q)
     {
-        point3 direction=r.getNormalDirection();
-        float D=dot(direction,r.getOriginPoint());
-        float numerator=std::abs(dot(direction,p)-D);
-        float denominator=std::sqrt(dot(direction,direction));
-        return numerator/denominator;
+        point3 O=r.getOriginPoint(),A=r.getOriginPoint();
+        A.x=A.x+r.getNormalDirection().x;
+        A.y=A.y+r.getNormalDirection().y;
+        A.z=A.z+r.getNormalDirection().z;
+        point3 vecQ(Q.x-O.x,Q.y-O.y,Q.z-O.z);
+        point3 vecAO(A.x-O.x,A.y-O.y,A.z-O.z);
+
+        Eigen::Vector3f x0_x1(Q.x-A.x,Q.y-A.y,Q.z-A.z);
+        Eigen::Vector3f x0_x2(Q.x-O.x,Q.y-O.y,Q.z-O.z);
+        Eigen::Vector3f crossVec=x0_x1.cross(x0_x2);
+        float numerator=std::sqrt(crossVec.dot(crossVec));
+        float denumerator=std::sqrt(RTL::dot(vecAO,vecAO));
+        return numerator/denumerator;
     }
 }
