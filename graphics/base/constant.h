@@ -7,5 +7,6 @@ struct DRAWLINE_TYPE{
     static constexpr int TYPE_DRAWLINE_MP1I=2;
     static constexpr int TYPE_DRAWLINE_MNI1=3;
     static constexpr int TYPE_DRAWLINE_MN10=4;
-}
+};
+
 #endif // CONSTANT_H
