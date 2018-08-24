@@ -1,20 +1,17 @@
 #include "vector3.h"
-#include <functional>
-
-
-namespace RTL{
-    template<typename T1,typename IterType>
-    IterType map(std::function<T1(T1)> func,const IterType& iter)
-    {
-        IterType res;
-        for(const auto &c:iter)
-            res.push(func(c));
-        return res;
-    }
-}
-vector3::vector3(double x, double y, double z, const point3 &direction, double length):originPoint(x,y,z),len(length)
+#include <cmath>
+vector3::vector3(float x, float y, float z, const point3 &direc, float length):len(length)
 {
-    normalizeDirection=direction;
-
+    originPoint=point3(x,y,z);
+    direction=direc;
+    this->normalizeDirection();
 }
-//
+
+void vector3::normalizeDirection()
+{
+    float normalX=std::pow(this->direction.x,2);
+    float normalY=std::pow(this->direction.y,2);
+    float normalZ=std::pow(this->direction.z,2);
+    float sum=std::sqrt(normalX+normalY+normalZ);
+    this->normalDirection=point3(this->direction.x/sum,this->direction.y/sum,this->direction.z/sum);
+}

@@ -1,8 +1,58 @@
-#include "mainwindow.h"
-#include "base/image.h"
-#include <QApplication>
+#include "base/vector3.h"
+#include "base/color.h"
+#include "base/lodepng.h"
+#include "base/ray.h"
+#include "base/infras.h"
 #include <iostream>
+#include <vector>
+using namespace std;
+void byteArray(vector<unsigned char>& vec,int w,int h,RTL::color *image)
+{
+    for(int i=0;i<h;i++)
+        for(int j=0;j<w;j++)
+        {
+            vec.push_back(image[i*w+j].getR());
+            vec.push_back(image[i*w+j].getG());
+            vec.push_back(image[i*w+j].getB());
+            vec.push_back(image[i*w+j].getA());
+        }
+}
+void colorBlend(RTL::color *image,int w,int h)
+{
+    RTL::color foreColor1(0x00,0xff,0x00,0xff*0.4);
+    RTL::color foreColor2(0x00,0x00,0xff,0xff/2);
+    for(int i=0;i<h;i++)
+        for(int j=0;j<w;j++)
+        {
+            image[i*w+j]=image[i*w+j].alphaBlend(foreColor1);
+        }
+}
 int main(int argc, char *argv[])
 {
-    std::cout<<"qqq"<<std::endl;
+    std::vector<unsigned char> byteImg; //the raw pixels
+    unsigned w, h;
+    unsigned error = lodepng::decode(byteImg, w, h, "D:/testPng.png");
+    lodepng::encode("D:/testRay.png",byteImg,w,h);
+    cout<<w<<":"<<h<<":"<<byteImg.size()<<endl;
+    RTL::color *image=new RTL::color[w*h];
+    for(int i=0;i<h;i++)
+        for(int j=0;j<w;j++)
+        {
+            image[i*w+j].setR(byteImg[(i*w+j)*4+0]);
+            image[i*w+j].setG(byteImg[(i*w+j)*4+1]);
+            image[i*w+j].setB(byteImg[(i*w+j)*4+2]);
+            image[i*w+j].setA(byteImg[(i*w+j)*4+3]);
+        }
+    byteImg.clear();
+    colorBlend(static_cast<RTL::color*>(image),w,h);
+    byteArray(byteImg,w,h,static_cast<RTL::color*>(image));
+    lodepng::encode("D:/testRayBlend.png",byteImg,w,h);
+
+    point3 rayDirec(1,1,1);
+    RTL::ray r(0,0,0,rayDirec,10);
+    point3 p(2,2,2);
+    cout<<RTL::distance_p3_line(r,p)<<endl;
+
+
+    return 0;
 }

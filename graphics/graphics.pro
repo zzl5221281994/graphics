@@ -10,6 +10,9 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = graphics
 TEMPLATE = app
+CONFIG += console c++11
+CONFIG -= app_bundle
+CONFIG -= qt
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -25,27 +28,31 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp \
-    base/vector2.cpp \
     base/vector3.cpp \
-    base/rgb.cpp \
-    base/image.cpp \
-    base/graphic_algorithm.cpp
+    base/lodepng.cpp \
+    base/scene.cpp \
+    base/shape/sphere.cpp \
+    base/shape/object.cpp \
+    base/ray.cpp \
+    base/shape/lightsphere.cpp \
+    base/camera.cpp \
+    base/infras.cpp
 
 HEADERS += \
-        mainwindow.h \
-    base/vector2.h \
     base/vector3.h \
-    base/rgb.h \
-    base/image.h \
     base/include.h \
-    base/graphic_algorithm.h \
-    base/constant.h \
-    base/math.h \
-    base/point.h
+    base/point.h \
+    base/lodepng.h \
+    base/color.h \
+    base/scene.h \
+    base/object.h \
+    base/shape/object.h \
+    base/shape/sphere.h \
+    base/infras.h \
+    base/ray.h \
+    base/shape/lightsphere.h \
+    base/camera.h
 
-FORMS += \
-        mainwindow.ui
+FORMS +=
 
-DISTFILES += \
-    base/test.txt
+DISTFILES +=
