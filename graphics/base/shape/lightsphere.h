@@ -7,7 +7,7 @@ class lightSphere:public sphere
 {
 public:
     lightSphere(const point3&position,float radius);
-
+    virtual bool isLightObject();
     void lighting(std::vector<RTL::ray*>&vec);
     ~lightSphere();
 

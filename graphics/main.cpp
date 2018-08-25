@@ -9,7 +9,7 @@
 #include <iostream>
 #include <random>
 #include <vector>
-
+#include <fstream>
 using namespace std;
 void byteArray(vector<unsigned char>& vec,int w,int h,RTL::color *image)
 {
@@ -59,6 +59,24 @@ int main(int argc, char *argv[])
     world.addObject(&light);
     world.trace();
 
+    std::vector<std::vector<int>> vec;
+    vec.resize(1000);
+    for(auto&v:vec)
+    {
+        v.resize(1000);
+        std::fill(v.begin(),v.end(),0);
+    }
+    world.saveRay("D:/ray.txt");
+    world.capture(vec);
+
+    std::ofstream openfile("d:/myfile.txt", std::ios::out);
+    for(const auto &c:vec)
+    {
+        for(const auto v:c)
+            openfile<<v<<" ";
+        openfile<<endl;
+    }
+    openfile.close();
     return 0;
 
 }
