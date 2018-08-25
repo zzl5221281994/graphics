@@ -1,0 +1,12 @@
+INPUT(
+./debug\main.o
+./debug\vector3.o
+./debug\lodepng.o
+./debug\scene.o
+./debug\sphere.o
+./debug\object.o
+./debug\ray.o
+./debug\lightsphere.o
+./debug\camera.o
+./debug\infras.o
+);

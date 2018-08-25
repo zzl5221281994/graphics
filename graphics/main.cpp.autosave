@@ -56,12 +56,9 @@ int main(int argc, char *argv[])
     scene world;
     lightSphere light(point3(10,10,10),5);
 
-//    world.addObject(&light);
-//    world.trace();
-    vector<RTL::ray*> vec;
-
-
-    }
+    world.addObject(&light);
+    world.trace();
+    
 
     return 0;
 

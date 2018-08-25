@@ -14,6 +14,8 @@ public:
 
     point3 getOriginPoint()const{return this->originPoint;}
     point3 getNormalDirection()const {return this->normalDirection;}
+    float getLength()const {return this->len;}
+    point3 getDestination()const;
 
 private:
     void normalizeDirection();

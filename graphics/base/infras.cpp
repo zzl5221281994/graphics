@@ -3,6 +3,7 @@
 #include <cmath>
 #include <tuple>
 #include <base/Eigen/Dense.h>
+#include <ctime>
 
 namespace RTL{
     template<typename T1,typename IterType>
@@ -13,6 +14,7 @@ namespace RTL{
             res.push_back(func(c));
         return res;
     }
+
     float distance(const point3&p1,const point3 &p2)
     {
         float x=std::pow((p1.x-p2.x),2);
@@ -41,5 +43,16 @@ namespace RTL{
         float numerator=std::sqrt(crossVec.dot(crossVec));
         float denumerator=std::sqrt(RTL::dot(vecAO,vecAO));
         return numerator/denumerator;
+    }
+
+    float random(float left,float right,std::vector<float> &vec,int size)
+    {
+        srand((unsigned)time(NULL));
+        for(int i=0;i<size;i++)
+        {
+            float res=rand()/float(RAND_MAX);
+            res=(right-left)*res+left;
+            vec.push_back(res);
+        }
     }
 }

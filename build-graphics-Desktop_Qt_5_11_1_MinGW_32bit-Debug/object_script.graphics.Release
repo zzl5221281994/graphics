@@ -1,0 +1,12 @@
+INPUT(
+./release\main.o
+./release\vector3.o
+./release\lodepng.o
+./release\scene.o
+./release\sphere.o
+./release\object.o
+./release\ray.o
+./release\lightsphere.o
+./release\camera.o
+./release\infras.o
+);

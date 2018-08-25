@@ -22,6 +22,15 @@ public:
     {
         decayRate=decay;
     }
+
+    point3 getPoint(float t)const
+    {
+        point3 originPoint=getOriginPoint();
+        point3 normal=getNormalDirection();
+        return point3(originPoint.x+normal.x*t,
+                      originPoint.y+normal.y*t,
+                      originPoint.z+normal.z*t);
+    }
     float getIntensity()const {return intensity;}
     float getDecayRate()const {return decayRate;}
 private:

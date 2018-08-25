@@ -36,7 +36,7 @@ SOURCES += \
     base/ray.cpp \
     base/shape/lightsphere.cpp \
     base/camera.cpp \
-    base/infras.cpp
+    base/infras.cpp \
 
 HEADERS += \
     base/vector3.h \
@@ -50,7 +50,6 @@ HEADERS += \
     base/shape/sphere.h \
     base/infras.h \
     base/ray.h \
-    base/shape/lightsphere.h \
     base/camera.h \
     base/Eigen/Cholesky/LDLT.h \
     base/Eigen/Cholesky/LLT.h \
@@ -625,7 +624,9 @@ HEADERS += \
     base/Eigen/src/SVD/JacobiSVD_LAPACKE.h \
     base/Eigen/src/SVD/SVDBase.h \
     base/Eigen/src/SVD/UpperBidiagonalization.h \
-    base/Eigen/src/UmfPackSupport/UmfPackSupport.h
+    base/Eigen/src/UmfPackSupport/UmfPackSupport.h \
+    base/shape/shape.h \
+    base/shape/lightsphere.h
 
 FORMS +=
 

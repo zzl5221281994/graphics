@@ -5,14 +5,13 @@
 class sphere:public object
 {
 public:
-    sphere(const point3&position,float radius):radius(radius),object(position)
-    {
-
-    }
-    virtual float SDF(const vector3 &vec);
-    virtual bool hitable(const vector3 &vec);
-    virtual bool isLightObject(){return false;}
-    float getRadius()const{return this->radius;}
+    sphere(const point3&position,float radius);
+    virtual float SDF(const RTL::ray &vec);
+    virtual bool hitable(const RTL::ray &vec,point3&hit);
+    virtual bool isLightObject();
+    virtual RTL::ray reflaction(const RTL::ray &vec);
+    virtual RTL::ray reflection(const RTL::ray &vec);
+    float getRadius()const;
 private:
     float radius;
 };

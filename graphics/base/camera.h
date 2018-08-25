@@ -13,6 +13,7 @@ private:
     point3 leftBottom;
     point3 rightTop;
     vector3 direction;
+    float width,height;
 };
 
 #endif // CAMERA_H
