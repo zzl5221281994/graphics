@@ -32,31 +32,49 @@ void colorBlend(RTL::color *image,int w,int h)
             image[i*w+j]=image[i*w+j].alphaBlend(foreColor1);
         }
 }
+
+void normalize(std::vector<std::vector<int>> &vec)
+{
+    int max=INT_MIN,min=INT_MAX;
+    for(const auto&v:vec)
+        for(const auto c:v)
+        {
+            if(c<min)
+                min=c;
+            if(c>max)
+                max=c;
+        }
+    for(auto &v:vec)
+        for(auto &c:v)
+            c=255*(c-min)/(max-min);
+}
 int main(int argc, char *argv[])
 {
     std::vector<unsigned char> byteImg; //the raw pixels
-    unsigned w, h;
-    unsigned error = lodepng::decode(byteImg, w, h, "D:/testPng.png");
-    lodepng::encode("D:/testRay.png",byteImg,w,h);
-    cout<<w<<":"<<h<<":"<<byteImg.size()<<endl;
-    RTL::color *image=new RTL::color[w*h];
-    for(int i=0;i<h;i++)
-        for(int j=0;j<w;j++)
-        {
-            image[i*w+j].setR(byteImg[(i*w+j)*4+0]);
-            image[i*w+j].setG(byteImg[(i*w+j)*4+1]);
-            image[i*w+j].setB(byteImg[(i*w+j)*4+2]);
-            image[i*w+j].setA(byteImg[(i*w+j)*4+3]);
-        }
-    byteImg.clear();
-    colorBlend(static_cast<RTL::color*>(image),w,h);
-    byteArray(byteImg,w,h,static_cast<RTL::color*>(image));
-    lodepng::encode("D:/testRayBlend.png",byteImg,w,h);
+//    unsigned w, h;
+//    unsigned error = lodepng::decode(byteImg, w, h, "D:/testPng.png");
+//    lodepng::encode("D:/testRay.png",byteImg,w,h);
+//    cout<<w<<":"<<h<<":"<<byteImg.size()<<endl;
+//    RTL::color *image=new RTL::color[w*h];
+//    for(int i=0;i<h;i++)
+//        for(int j=0;j<w;j++)
+//        {
+//            image[i*w+j].setR(byteImg[(i*w+j)*4+0]);
+//            image[i*w+j].setG(byteImg[(i*w+j)*4+1]);
+//            image[i*w+j].setB(byteImg[(i*w+j)*4+2]);
+//            image[i*w+j].setA(byteImg[(i*w+j)*4+3]);
+//        }
+//    byteImg.clear();
+//    colorBlend(static_cast<RTL::color*>(image),w,h);
+//    byteArray(byteImg,w,h,static_cast<RTL::color*>(image));
+//    lodepng::encode("D:/testRayBlend.png",byteImg,w,h);
 
     scene world;
-    lightSphere light(point3(10,10,10),5);
+    lightSphere light1(point3(10,10,10),50);
+    lightSphere light2(point3(100,100,100),30);
 
-    world.addObject(&light);
+    world.addObject(&light1);
+    world.addObject(&light2);
     world.trace();
 
     std::vector<std::vector<int>> vec;
@@ -66,17 +84,43 @@ int main(int argc, char *argv[])
         v.resize(1000);
         std::fill(v.begin(),v.end(),0);
     }
-    world.saveRay("D:/ray.txt");
+    //world.saveRay("D:/ray.txt");
     world.capture(vec);
+    //normalize(vec);
+    RTL::color *image=new RTL::color[1000*1000];
+    for(int i=0;i<1000;i++)
+        for(int j=0;j<1000;j++)
+        {
+            auto c=vec[i][j];
+            if(c>255)
+            {
+                image[i*1000+j].setR(0xff);
+                image[i*1000+j].setG(0xff);
+                image[i*1000+j].setB(0xff);
+                image[i*1000+j].setA(0xff);
+            }
+            else
+            {
+                image[i*1000+j].setR(c);
+                image[i*1000+j].setG(c);
+                image[i*1000+j].setB(c);
+                image[i*1000+j].setA(0xff);
+            }
+        }
 
-    std::ofstream openfile("d:/myfile.txt", std::ios::out);
-    for(const auto &c:vec)
-    {
-        for(const auto v:c)
-            openfile<<v<<" ";
-        openfile<<endl;
-    }
-    openfile.close();
+    byteImg.clear();
+    //colorBlend(static_cast<RTL::color*>(image),w,h);
+    byteArray(byteImg,1000,1000,static_cast<RTL::color*>(image));
+    lodepng::encode("D:/testRayTrace1.png",byteImg,1000,1000);
+
+//    std::ofstream openfile("d:/myfile.txt", std::ios::out);
+//    for(const auto &c:vec)
+//    {
+//        for(const auto v:c)
+//            openfile<<v<<" ";
+//        openfile<<endl;
+//    }
+//    openfile.close();
     return 0;
 
 }

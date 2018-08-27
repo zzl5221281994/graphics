@@ -51,8 +51,18 @@ void scene::capture(std::vector<std::vector<int>> &vec)
             float z=p*t+z0;
             if((y>-500&&y<500)&&(z>-500&&z<500))
             {
-                vec[int(z)+500][int(y)+500]+=1;
+                float dis1=(y-10)*(y-10)+(z-10)*(z-10);
+                float dis2=(y-100)*(y-100)+(z-100)*(z-100);
+                if(dis1<=2500.0||dis2<=900)
+                {
+                    vec[int(z)+500][int(y)+500]=INT_MAX;
+                }
+                else
+                {
+                    vec[int(z)+500][int(y)+500]+=1;
+                }
             }
+
         }
     }
 }

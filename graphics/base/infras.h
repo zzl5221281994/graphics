@@ -5,6 +5,7 @@
 #include <cmath>
 #include <tuple>
 #include <vector>
+#include <fstream>
 
 namespace RTL{
 #define PI 3.1415926
@@ -17,5 +18,8 @@ namespace RTL{
     std::tuple<float,float,float,float> ray_function(const ray&r);
 
     inline float random(float left,float right,std::vector<float> &vec,int size);
+
+    inline void writeRay(std::ofstream&out,const RTL::ray &r);
+    inline void readRay(std::ifstream&in,std::string&str);
 }
 #endif // INFRAS_H

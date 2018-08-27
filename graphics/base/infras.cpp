@@ -55,4 +55,17 @@ namespace RTL{
             vec.push_back(res);
         }
     }
+
+    inline void writeRay(std::ofstream&out,const RTL::ray &r)
+    {
+        point3 origin=r.getOriginPoint();
+        point3 normal=r.getNormalDirection();
+        float len=r.getLength();
+        //out<<origin.x<<" "<<origin.y<<" "<<origin.z<<" "<<normal.x<<" "<<normal.y<<" "<<normal.z<<" "<<len<<std::endl;
+    }
+    inline void readRay(std::ifstream&in,std::string &str)
+    {
+        //std::getline(in,str);
+
+    }
 }
